@@ -1,0 +1,21 @@
+﻿@model ToDoListItemViewModel
+@{
+    <h3>Edit Todo Item</h3>
+    <br />
+    <form method="post" enctype="multipart/form-data" asp-controller="ToDoList" asp-action="UpdateToDoListItem">
+        <table border="1" cellpadding="5">
+            <tr><th>Task</th></tr>
+            <tr>
+                <td width="300">
+                    Description: 
+                    <input type="text" id="description" name="description" value="@Model.description">
+                    <input type="hidden" id="id" name="id" value="@Model.id" />
+                    <input type="hidden" id="listId" name="listId" value="@Model.listId" />
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+}
