@@ -16,17 +16,24 @@ namespace ToDoListApp.Controllers
         {
             List<ToDoListViewModel> toDoList = new List<ToDoListViewModel>();
 
-            using (var client = new HttpClient())
+            try
             {
-                var responseTask = client.GetAsync("http://localhost:43416/api/ToDoList/All");
-                responseTask.Wait();
+                using (var client = new HttpClient())
+                {
+                    var responseTask = client.GetAsync("http://localhost:43416/api/ToDoList/All");
+                    responseTask.Wait();
 
-                var result = responseTask.Result;
+                    var result = responseTask.Result;
 
-                var data = result.Content.ReadAsStringAsync();
-                responseTask.Wait();
+                    var data = result.Content.ReadAsStringAsync();
+                    responseTask.Wait();
 
-                toDoList = JsonSerializer.Deserialize<List<ToDoListViewModel>>(data.Result);
+                    toDoList = JsonSerializer.Deserialize<List<ToDoListViewModel>>(data.Result);
+                }
+            }
+            catch
+            {
+                toDoList = null;
             }
 
             return View(toDoList);

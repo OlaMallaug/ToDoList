@@ -127,7 +127,7 @@ namespace ToDoListProjectTests
             {
                 StringContent content = new StringContent(JsonSerializer.Serialize<ToDoListViewModel>(toDoList), Encoding.UTF8, "application/json");
 
-                var responseTask = client.PostAsync("http://localhost:5000/api/ToDoList", content);
+                var responseTask = client.PostAsync("http://localhost:5003/api/ToDoList", content);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -143,7 +143,7 @@ namespace ToDoListProjectTests
             {
                 StringContent content = new StringContent(JsonSerializer.Serialize<ToDoListItemViewModel>(toDoListItem), Encoding.UTF8, "application/json");
 
-                var responseTask = client.PostAsync("http://localhost:5000/api/ToDoListItem", content);
+                var responseTask = client.PostAsync("http://localhost:5003/api/ToDoListItem", content);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -159,7 +159,7 @@ namespace ToDoListProjectTests
 
             using (var client = new HttpClient())
             {
-                var responseTask = client.GetAsync("http://localhost:5000/api/ToDoListItem/List/" + id);
+                var responseTask = client.GetAsync("http://localhost:5003/api/ToDoListItem/List/" + id);
                 responseTask.Wait();
 
                 var result = responseTask.Result;
@@ -179,7 +179,7 @@ namespace ToDoListProjectTests
 
             using (var client = new HttpClient())
             {
-                var responseTask = client.GetAsync("http://localhost:5000/api/ToDoList/All");
+                var responseTask = client.GetAsync("http://localhost:5003/api/ToDoList/All");
                 responseTask.Wait();
 
                 var result = responseTask.Result;

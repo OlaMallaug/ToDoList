@@ -1,69 +1,76 @@
 ﻿@model List<ToDoListViewModel>
 @{
-    <h3>List of Todo Lists</h3>
-    <br />
-
-    @if (Model.Count > 0)
+    @if (Model is null)
     {
-        <table border="1" cellpadding="5">
-            <tr><th></th><th>Description</th><th>Associated With</th><th></th><th></th></tr>
-            @foreach (var element in Model)
-            {
-
-        <tr>
-            <td width="70">
-                <a asp-action="ShowToDoList" asp-route-id="@element.id">
-                    Select
-                </a>
-            </td>
-            <td width="300">
-                @Html.DisplayFor(m => element.name)
-            </td>
-            <td width="200">
-                <a asp-action="AllAssociatedToDoLists" asp-route-id="@element.id">
-                    @Html.DisplayFor(m => element.associatedWith)
-                </a>
-            </td>
-            <td width="100">
-                <a asp-action="EditList" asp-route-id="@element.id">
-                    Edit
-                </a>
-            </td>
-            <td width="100">
-                <a asp-action="DeleteToDoList" asp-route-id="@element.id">
-                    Delete
-                </a>
-            </td>
-        </tr>
-
-            }
-        </table>
+        <h2>Unable to connect to API</h2>
     }
     else
     {
-        <b>No Lists in the DataBase</b>
+        <h3>List of Todo Lists</h3>
         <br />
+
+        @if (Model.Count > 0)
+        {
+            <table border="1" cellpadding="5">
+                <tr><th></th><th>Description</th><th>Associated With</th><th></th><th></th></tr>
+                @foreach (var element in Model)
+                {
+
+                    <tr>
+                        <td width="70">
+                            <a asp-action="ShowToDoList" asp-route-id="@element.id">
+                                Select
+                            </a>
+                        </td>
+                        <td width="300">
+                            @Html.DisplayFor(m => element.name)
+                        </td>
+                        <td width="200">
+                            <a asp-action="AllAssociatedToDoLists" asp-route-id="@element.id">
+                                @Html.DisplayFor(m => element.associatedWith)
+                            </a>
+                        </td>
+                        <td width="100">
+                            <a asp-action="EditList" asp-route-id="@element.id">
+                                Edit
+                            </a>
+                        </td>
+                        <td width="100">
+                            <a asp-action="DeleteToDoList" asp-route-id="@element.id">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+            </table>
+        }
+        else
+        {
+            <b>No Lists in the DataBase</b>
+            <br />
+        }
+        <br />
+        <br />
+        <b>Add new list</b>
+        <br />
+        <br />
+        <form method="post" enctype="multipart/form-data" asp-controller="ToDoList" asp-action="AddToDoList">
+            <table>
+                <tr>
+                    <td>List Name: </td>
+                    <td><input type="text" id="txtListName" name="Name" /></td>
+                </tr>
+                <tr>
+                    <td>Associated With: </td>
+                    <td><input type="text" id="txtAssociatedWith" name="AssociatedWith" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Submit" /></td>
+                </tr>
+            </table>
+            <hr />
+        </form>
     }
-    <br />
-    <br />
-    <b>Add new list</b>
-    <br />
-    <br />
-    <form method="post" enctype="multipart/form-data" asp-controller="ToDoList" asp-action="AddToDoList">
-        <table>
-            <tr>
-                <td>List Name: </td>
-                <td><input type="text" id="txtListName" name="Name" /></td>
-            </tr>
-            <tr>
-                <td>Associated With: </td>
-                <td><input type="text" id="txtAssociatedWith" name="AssociatedWith" /></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
-        <hr />
-    </form>
 }
